@@ -1,0 +1,5 @@
+AQICN_TOKEN=28b04bdfc0353a3bb0e658d23e6ec723eff37a2c
+
+get lat/long boundaries for the whole US: https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=47.751076,-120.740135,18.2208,66.5901
+https://aqicn.org/json-api/doc/#api-Geolocalized_Feed
+
