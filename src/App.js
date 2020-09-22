@@ -6,7 +6,7 @@ import {Map} from './components/maps';
 
 
 function App({ mapProps }) {
-  const [AQIStations1, setAQIStations] = useState();
+  const [AQIStations, setAQIStations] = useState([]);
 
   useEffect(() => {
     axios.get("https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=24.846565,-65.960261,48.987427,-124.732715")
@@ -16,75 +16,27 @@ function App({ mapProps }) {
     })
     .catch((error) => console.log(error));
   }, [])
-  console.log("AQIStations1:",AQIStations1);
-  var AQIStations= [
-    {
-    lat: 44.657014,
-    lon: -111.089618,
-    uid: 7529,
-    aqi: "21",
-    station: {
-    name: "West Yellowstone Park Ent #2, Montana, USA",
-    time: "2020-09-21T19:00:00-07:00"
-    }
-    },
-    {
-    lat: 40.733501,
-    lon: -111.871696,
-    uid: 4469,
-    aqi: "68",
-    station: {
-    name: "Salt Lake City, Utah",
-    time: "2020-09-21T20:00:00-06:00"
-    }
-    },
-    {
-    lat: 44.150528,
-    lon: -77.3955,
-    uid: 1,
-    aqi: "25",
-    station: {
-    name: "Belleville, Ontario, Canada",
-    time: "2020-09-21T22:00:00-05:00"
-    }
-    },
-    {
-    lat: 37.1314,
-    lon: -86.1481,
-    uid: 7411,
-    aqi: "22",
-    station: {
-    name: "Mammoth Cave NP, Kentucky, USA",
-    time: "2020-09-21T20:00:00-05:00"
-    }
-    },
-    {
-    lat: 39.758235,
-    lon: -84.197375,
-    uid: 7463,
-    aqi: "29",
-    station: {
-    name: "Dayton - Sinclair, Ohio, USA",
-    time: "2020-09-21T20:00:00-05:00"
-    }
-    }]
+  console.log("AQIStations:",AQIStations);
 
   const addMarkers = links => map => {
     links.forEach((link, index) => {
-      var position = new window.google.maps.LatLng(link.lat, link.lon);
-      const marker = new window.google.maps.Marker({
-        map,
-        position: position,
-        // label: "test label",
-        title: link.station.name,
-        id: index + 1
-      });
-      const infowindow = new window.google.maps.InfoWindow({
-        content: link.name
-      });
-      marker.addListener(`click`, () => {
-        infowindow.open(map, marker);
-      });
+      if (link.station.name.slice(link.station.name.length-6) !== "Mexico" && link.station.name.slice(link.station.name.length-6) !== "Canada"&& link.station.name.slice(link.station.name.length-8) !== "Saguenay") {
+        var position = new window.google.maps.LatLng(link.lat, link.lon);
+        const marker = new window.google.maps.Marker({
+          map,
+          position: position,
+          // label: "test label",
+          title: link.station.name,
+          id: index + 1
+        });
+        const infowindow = new window.google.maps.InfoWindow({
+          content: link.station.name
+        });
+        marker.addListener(`click`, () => {
+          infowindow.open(map, marker);
+        });
+        
+      }
     });
   };
 
@@ -126,3 +78,51 @@ function App({ mapProps }) {
 export default App;
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+
+// import React, { useState, useEffect } from 'react';
+// import GMap from './components/maps';
+//     import axios from 'axios';
+
+
+// // API key of the google map
+// const GOOGLE_MAP_API_KEY = '<YOUR_GOOGLE_MAP_API_KEY>';
+
+// // load google map script
+// const loadGoogleMapScript = (callback) => {
+//   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
+//     callback();
+//   } else {
+//     const googleMapScript = document.createElement("script");
+//     googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}`;
+//     window.document.body.appendChild(googleMapScript);
+//     googleMapScript.addEventListener("load", callback);
+//   }
+// }
+
+// const App = () => {
+//   const [loadMap, setLoadMap] = useState(false);
+//   const [markerList, setMarkerList] = useState();
+
+
+//   useEffect(() => {
+//     axios.get("https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=24.846565,-65.960261,48.987427,-124.732715")
+//             .then(response => {
+//               console.log(response.data.data);
+//               setMarkerList(response.data.data);
+//             })
+//             .catch((error) => console.log(error));
+
+//     loadGoogleMapScript(() => {
+//       setLoadMap(true)
+//     });
+//   }, []);
+
+//   return (
+//     <div className="App">
+//       {!loadMap ? <div>Loading...</div> : <GMap markerList={markerList}/>}
+//       <br/><br/>
+//     </div>
+//   );
+// }
+
+// export default App;
