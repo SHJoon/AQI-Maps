@@ -1,5 +1,6 @@
 AQICN_TOKEN=28b04bdfc0353a3bb0e658d23e6ec723eff37a2c
 
-get lat/long boundaries for the whole US: https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=47.751076,-120.740135,18.2208,66.5901
+get lat/long boundaries for the whole US: https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=24.846565,-65.960261,48.987427,-124.732715
 https://aqicn.org/json-api/doc/#api-Geolocalized_Feed
 
+Fremont: {lat:37.550201, lng:-121.980827}

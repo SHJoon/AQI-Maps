@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+export { Map as default } from "./components/maps";
+
 
 ReactDOM.render(
   <React.StrictMode>
