@@ -36,11 +36,11 @@ function App({ mapProps }) {
         <p>Last Updated: ${link.station.time}</p>
       </div>`
 
-      const infowindow = new window.google.maps.InfoWindow({
+      const infobubble = new window.google.maps.InfoWindow({
         content: infoStr
       });
       marker.addListener(`click`, () => {
-        infowindow.open(map, marker);
+        infobubble.open(map, marker);
       });
     });
   };
@@ -81,5 +81,5 @@ function App({ mapProps }) {
 }
 
 export default App;
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(<App />, rootElement);
