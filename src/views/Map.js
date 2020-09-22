@@ -60,12 +60,12 @@ const Map = (props) => {
         selectedCity && (
             <div>
             <InfoWindow
-            style={infoStyle}
+            style={{backgroundColor:"red"}}
             position={{
                 lat:selectedCity.lat,
                 lng:selectedCity.lon
             }}>
-                <div>
+                <div style={infoStyle}>
                     <h2>City Details</h2>
                     <p>AQI = {selectedCity.aqi}</p>
                 </div>
