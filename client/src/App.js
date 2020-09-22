@@ -4,8 +4,36 @@ import './App.css';
 import axios from 'axios';
 import {Map} from './components/maps';
 
+// this is for login registration
+import { Link, navigate, Router } from "@reach/router";
+import LogReg from "./views/LogReg";
+import UserList from "./views/UserList";
+
 
 function App({ mapProps }) {
+
+  // this is for login registration
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const logout = () => {
+    axios
+      .post(
+        "http://localhost:8000/api/logout",
+        {},
+        {
+          // need to send the cookie in request so server can clear it
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        setIsLoggedIn(false);
+      })
+      .catch(console.log);
+
+    navigate("/");
+  };
+
   const [AQIStations, setAQIStations] = useState([]);
 
   useEffect(() => {
@@ -54,23 +82,21 @@ function App({ mapProps }) {
   return (
     <div className='App'>
       <Map {...mapProps}/>
-      {/* {AQIStations.map((marker, i) => {
-          
-          return (
-            <li
-              // ON CLICK TO TRIGGER MARKER
-              onClick={() => markerClickHandler(i)}
-              style={{
-                margin: "1vmin",
-                borderBottom: "1px solid gray",
-                cursor: "pointer"
-              }}
-              key={marker.id}
-            >
-              {marker.name}
-            </li> */}
-          {/* );
-        })} */}
+
+      {/* this is for login registration */}
+      {/* <div className="jumbotron">
+        <h1>MERN Users</h1>
+        {isLoggedIn && <button onClick={logout}>Logout</button>}
+      </div>
+      <Router>
+        <LogReg setLoggedIn={() => setIsLoggedIn(true)} path="/" />
+        <UserList path="/users" />
+      </Router>
+      <div className="container">
+        <Link to="/users">Get Users List</Link>
+      </div> */}
+
+
     </div>
   );
 }
