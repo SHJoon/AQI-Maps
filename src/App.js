@@ -123,6 +123,10 @@ function App({ mapProps }) {
   );
 }
 
+<<<<<<< HEAD
 export default App;
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+=======
+export default App;
+>>>>>>> Allowing App export
