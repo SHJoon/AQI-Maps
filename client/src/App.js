@@ -17,31 +17,26 @@ function App({ mapProps }) {
     .catch((error) => console.log(error));
   }, [])
   console.log("AQIStations:",AQIStations);
-  
+
   const addMarkers = links => map => {
     links.forEach((link, index) => {
-      var position = new window.google.maps.LatLng(link.lat, link.lon);
-      const marker = new window.google.maps.Marker({
-        map,
-        position: position,
-        // label: "test label",
-        title: link.station.name,
-        id: index + 1
-      });
-
-      const infoStr = 
-      `<div>
-        <h4>${link.station.name}</h4>
-        <p>AQI: ${link.aqi}</p>
-        <p>Last Updated: ${link.station.time}</p>
-      </div>`
-
-      const infobubble = new window.google.maps.InfoWindow({
-        content: infoStr
-      });
-      marker.addListener(`click`, () => {
-        infobubble.open(map, marker);
-      });
+      if (link.station.name.slice(link.station.name.length-6) !== "Mexico" && link.station.name.slice(link.station.name.length-6) !== "Canada"&& link.station.name.slice(link.station.name.length-8) !== "Saguenay") {
+        var position = new window.google.maps.LatLng(link.lat, link.lon);
+        const marker = new window.google.maps.Marker({
+          map,
+          position: position,
+          // label: "test label",
+          title: link.station.name,
+          id: index + 1
+        });
+        const infowindow = new window.google.maps.InfoWindow({
+          content: link.station.name
+        });
+        marker.addListener(`click`, () => {
+          infowindow.open(map, marker);
+        });
+        
+      }
     });
   };
 
