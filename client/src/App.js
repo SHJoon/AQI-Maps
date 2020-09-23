@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import './App.css';
 import axios from 'axios';
 import {Map} from './components/maps';
+import MarkerClusterer from '@googlemaps/markerclustererplus';
 
 // this is for login registration
 import { Link, navigate, Router } from "@reach/router";
@@ -46,7 +47,16 @@ function App({ mapProps }) {
   }, [])
   console.log("AQIStations:",AQIStations);
 
+  const addAQIStyle = (aqi) => {
+    const hValue = 120 - Math.floor(aqi * 0.8);
+    const sValue = "100%";
+    const lValue = "50%";
+
+    return `hsl(${hValue},${sValue},${lValue})`
+  }
+
   const addMarkers = links => map => {
+    const markerList = [];
     links.forEach((link, index) => {
       if (link.station.name.slice(link.station.name.length-6) !== "Mexico" && link.station.name.slice(link.station.name.length-6) !== "Canada"&& link.station.name.slice(link.station.name.length-8) !== "Saguenay") {
         var position = new window.google.maps.LatLng(link.lat, link.lon);
@@ -57,8 +67,25 @@ function App({ mapProps }) {
           title: link.station.name,
           id: index + 1
         });
+
+        markerList.push(marker);
+
+        let infoStyle = `background-color:${addAQIStyle(link.aqi)}`;
+        if (parseInt(link.aqi) > 250) {
+          infoStyle = `background-color:purple`;
+        }
+        if (parseInt(link.aqi) > 100) {
+          infoStyle += `;color:white`;
+        }
+
+        let infoStr =
+        `<div style="${infoStyle}">
+          <h3 style="${infoStyle}">${link.station.name}</h3>
+          <p>Air Quality Index: ${link.aqi}</p>
+          <p>Last Updated: ${link.station.time}</p>
+        </div>`;
         const infowindow = new window.google.maps.InfoWindow({
-          content: link.station.name
+          content: infoStr
         });
         marker.addListener(`click`, () => {
           infowindow.open(map, marker);
@@ -66,6 +93,8 @@ function App({ mapProps }) {
         
       }
     });
+    var markerCluster = new MarkerClusterer(map, markerList,
+      {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
   };
 
   mapProps = {
