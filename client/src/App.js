@@ -1,40 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import './App.css';
 import axios from 'axios';
 import {Map} from './components/maps';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
+import SearchBox from "./components/SearchBox"
 
 // this is for login registration
-import { Link, navigate, Router } from "@reach/router";
-import LogReg from "./views/LogReg";
-import UserList from "./views/UserList";
+// import { Link, navigate, Router } from "@reach/router";
+// import LogReg from "./views/LogReg";
+// import UserList from "./views/UserList";
 
 
 function App({ mapProps }) {
 
   // this is for login registration
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const logout = () => {
-    axios
-      .post(
-        "http://localhost:8000/api/logout",
-        {},
-        {
-          // need to send the cookie in request so server can clear it
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        setIsLoggedIn(false);
-      })
-      .catch(console.log);
+  // const logout = () => {
+  //   axios
+  //     .post(
+  //       "http://localhost:8000/api/logout",
+  //       {},
+  //       {
+  //         // need to send the cookie in request so server can clear it
+  //         withCredentials: true,
+  //       }
+  //     )
+  //     .then((res) => {
+  //       console.log(res);
+  //       setIsLoggedIn(false);
+  //     })
+  //     .catch(console.log);
 
-    navigate("/");
-  };
+  //   navigate("/");
+  // };
 
+  const [centeredPos, setCenteredPos] = useState({lat:37.550201, lng:-121.980827});
   const [AQIStations, setAQIStations] = useState([]);
 
   useEffect(() => {
@@ -42,10 +44,14 @@ function App({ mapProps }) {
     .then(response => {
       // console.log(response.data.data);
       setAQIStations(response.data.data);
+      // console.log("centeredPos: ",centeredPos);
+      console.log("In useEffect");
+      console.log(process.env.API_KEY);
+
     })
     .catch((error) => console.log(error));
   }, [])
-  console.log("AQIStations:",AQIStations);
+  // console.log("AQIStations:",AQIStations);
 
   const addAQIStyle = (aqi) => {
     const hValue = 120 - Math.floor(aqi * 0.8);
@@ -57,15 +63,31 @@ function App({ mapProps }) {
 
   const addMarkers = links => map => {
     const markerList = [];
+    var iconColor="";
+    
     links.forEach((link, index) => {
+      
       if (link.station.name.slice(link.station.name.length-6) !== "Mexico" && link.station.name.slice(link.station.name.length-6) !== "Canada"&& link.station.name.slice(link.station.name.length-8) !== "Saguenay") {
+        if (link.aqi > 200){iconColor ="purple";}
+        else if (link.aqi > 150){iconColor ="red";}
+        else if (link.aqi > 100){iconColor ="orange";}
+        else if (link.aqi > 50){iconColor ="yellow";}
+        else if (link.aqi <= 50){iconColor ="green";}
         var position = new window.google.maps.LatLng(link.lat, link.lon);
         const marker = new window.google.maps.Marker({
           map,
           position: position,
-          // label: "test label",
+          // animation: google.maps.Animation.DROP,
+          // labelColor: "red",
+          label: {
+            text: link.aqi,
+            color: "black",
+          },
           title: link.station.name,
-          id: index + 1
+          id: index + 1,
+          icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/"+iconColor+"-dot.png"
+          }
         });
 
         markerList.push(marker);
@@ -93,23 +115,19 @@ function App({ mapProps }) {
         
       }
     });
+
     var markerCluster = new MarkerClusterer(map, markerList,
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
   };
 
   mapProps = {
-    options: { center: {lat:37.550201, lng:-121.980827}, zoom: 10 },
+    options: { center: centeredPos, zoom: 8 },
     onMount: addMarkers(AQIStations)
-  };
-
-  //NOT WORKING PROPERLY
-  const markerClickHandler = (id, marker) => {
-    alert("clicked");
-    window.google.maps.event.trigger(id, "click");
   };
 
   return (
     <div className='App'>
+      <SearchBox setLoc={longLat => setCenteredPos(longLat)}/>
       <Map {...mapProps}/>
 
       {/* this is for login registration */}
@@ -131,5 +149,3 @@ function App({ mapProps }) {
 }
 
 export default App;
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<App />, rootElement);
