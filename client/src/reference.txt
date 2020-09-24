@@ -4,3 +4,4 @@ get lat/long boundaries for the whole US: https://api.waqi.info/map/bounds/?toke
 https://aqicn.org/json-api/doc/#api-Geolocalized_Feed
 
 Fremont: {lat:37.550201, lng:-121.980827}
+New York: {lat: 40.730610, lng: -73.935242}

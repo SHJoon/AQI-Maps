@@ -35,9 +35,26 @@ function App({ mapProps }) {
 
   //   navigate("/");
   // };
+  
+  
+  // successCallBack function in finding user location
+  // const [initialMapPos, setInitialMapPos] = useState(null);
+  var initialMapPos;
+  const successCallBack= position => {
+    const { latitude, longitude } = position.coords;
+    // setInitialMapPos({lat: latitude, lng: longitude});
+    initialMapPos = {lat: latitude, lng: longitude};
+    console.log(initialMapPos);
 
-  const [centeredPos, setCenteredPos] = useState({lat:37.550201, lng:-121.980827});
+  }
+  // codes to user location
+  window.navigator.geolocation
+  .getCurrentPosition(successCallBack, console.log);
+
+  // const [initialMapPos, setInitialMapPos] = useState(null);
+  const [centeredPos, setCenteredPos] = useState({lat: 40.730610, lng: -73.935242});
   const [AQIStations, setAQIStations] = useState([]);
+  console.log(centeredPos);
 
   useEffect(() => {
     axios.get("https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=24.846565,-65.960261,48.987427,-124.732715")
@@ -45,8 +62,19 @@ function App({ mapProps }) {
       // console.log(response.data.data);
       setAQIStations(response.data.data);
       // console.log("centeredPos: ",centeredPos);
-      console.log("In useEffect");
-      console.log(process.env.API_KEY);
+      // console.log("In useEffect");
+      // console.log(process.env.API_KEY);
+      // find user location
+      // var initialMapPos;
+      // const successCallBack= position => {
+      //   const { latitude, longitude } = position.coords;
+      //   setInitialMapPos({lat: latitude, lng: longitude});
+      //   // initialMapPos = {lat: latitude, lng: longitude};
+      //   console.log(initialMapPos);
+
+      // }
+      // window.navigator.geolocation
+      // .getCurrentPosition(successCallBack, console.log);
 
     })
     .catch((error) => console.log(error));
@@ -77,12 +105,6 @@ function App({ mapProps }) {
         const marker = new window.google.maps.Marker({
           map,
           position: position,
-          // animation: google.maps.Animation.DROP,
-          // labelColor: "red",
-          label: {
-            text: link.aqi,
-            color: "black",
-          },
           title: link.station.name,
           id: index + 1,
           icon: {
@@ -121,7 +143,7 @@ function App({ mapProps }) {
   };
 
   mapProps = {
-    options: { center: centeredPos, zoom: 8 },
+    options: { center: centeredPos, zoom: 12 },
     onMount: addMarkers(AQIStations)
   };
 
