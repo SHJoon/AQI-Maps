@@ -110,16 +110,23 @@ function App({ mapProps }) {
           infoStyle += `;color:white`;
         }
 
-        let infoStr =
-        `<div style="${infoStyle}">
-          <h3 style="${infoStyle}">${link.station.name}</h3>
-          <p>Air Quality Index: ${link.aqi}</p>
-          <p>Last Updated: ${link.station.time}</p>
-        </div>`;
+        // let infoStr =
+        // `<div style="${infoStyle}">
+        //   <h3 style="${infoStyle}">${link.station.name}</h3>
+        //   <p>Air Quality Index: ${link.aqi}</p>
+        //   <p>Last Updated: ${link.station.time}</p>
+        // </div>`;
         infoWindow = new window.google.maps.InfoWindow({
-          content: infoStr
+          // content: infoStr
         });
         marker.addListener(`click`, () => {
+          infoWindow.setContent(
+            `<div style="${infoStyle}">
+              <h3 style="${infoStyle}">${link.station.name}</h3>
+              <p>Air Quality Index: ${link.aqi}</p>
+              <p>Last Updated: ${link.station.time}</p>
+            </div>`
+          );
           infoWindow.open(map, marker);
           navigate(`/info/${link.lat}/${link.lon}`);
         });
