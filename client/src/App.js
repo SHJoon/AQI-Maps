@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 // import ReactDOM from "react-dom";
 import './App.css';
 import axios from 'axios';
+import { navigate, Router } from '@reach/router';
+
 import {Map} from './components/maps';
+import EachCity from './components/EachCity';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
 import SearchBox from "./components/SearchBox"
 
@@ -38,23 +41,18 @@ function App({ mapProps }) {
 
   const [centeredPos, setCenteredPos] = useState({lat:37.550201, lng:-121.980827});
   const [AQIStations, setAQIStations] = useState([]);
+  const [currentLocation, setCurrentLocation] = useState({});
 
   useEffect(() => {
     axios.get("https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=24.846565,-65.960261,48.987427,-124.732715")
     .then(response => {
-      // console.log(response.data.data);
       setAQIStations(response.data.data);
-      // console.log("centeredPos: ",centeredPos);
-      console.log("In useEffect");
-      console.log(process.env.API_KEY);
-
     })
     .catch((error) => console.log(error));
   }, [])
-  // console.log("AQIStations:",AQIStations);
 
   const addAQIStyle = (aqi) => {
-    const hValue = 120 - Math.floor(aqi * 0.8);
+    const hValue = 120 - Math.floor(aqi * 0.75);
     const sValue = "100%";
     const lValue = "50%";
 
@@ -77,12 +75,7 @@ function App({ mapProps }) {
         const marker = new window.google.maps.Marker({
           map,
           position: position,
-          // animation: google.maps.Animation.DROP,
-          // labelColor: "red",
-          label: {
-            text: link.aqi,
-            color: "black",
-          },
+          // animation: window.google.maps.Animation.DROP,
           title: link.station.name,
           id: index + 1,
           icon: {
@@ -111,6 +104,7 @@ function App({ mapProps }) {
         });
         marker.addListener(`click`, () => {
           infowindow.open(map, marker);
+          navigate(`/info/${link.lat}/${link.lon}`);
         });
         
       }
@@ -129,6 +123,9 @@ function App({ mapProps }) {
     <div className='App'>
       <SearchBox setLoc={longLat => setCenteredPos(longLat)}/>
       <Map {...mapProps}/>
+      <Router primary={false}>
+        <EachCity path="/info/:locLat/:locLng" city={currentLocation}/>
+      </Router>
 
       {/* this is for login registration */}
       {/* <div className="jumbotron">
