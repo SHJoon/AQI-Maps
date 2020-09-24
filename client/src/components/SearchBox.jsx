@@ -1,3 +1,4 @@
+import { navigate } from "@reach/router";
 import React, { useState } from "react";
 import Geocode from "react-geocode";
 // import { navigate } from "@reach/router";
@@ -11,6 +12,7 @@ const SearchBox = ({ setLoc }) => {
             res => {
                 // console.log("res.data.results.geometry.address: ",res.results[0].geometry.address);
                 setLoc(res.results[0].geometry.location);
+                navigate(`/info/${res.results[0].geometry.location.lat}/${res.results[0].geometry.location.lng}`);
             },
             err => {
               console.error(err);
