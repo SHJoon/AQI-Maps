@@ -36,45 +36,31 @@ function App({ mapProps }) {
   //   navigate("/");
   // };
   
-  
   // successCallBack function in finding user location
-  // const [initialMapPos, setInitialMapPos] = useState(null);
-  var initialMapPos;
   const successCallBack= position => {
     const { latitude, longitude } = position.coords;
-    // setInitialMapPos({lat: latitude, lng: longitude});
-    initialMapPos = {lat: latitude, lng: longitude};
-    console.log(initialMapPos);
+    setCenteredPos({lat: latitude, lng: longitude});
+    // initialMapPos = {lat: latitude, lng: longitude};
+    return {lat: latitude, lng: longitude};
 
   }
   // codes to user location
-  window.navigator.geolocation
-  .getCurrentPosition(successCallBack, console.log);
-
-  // const [initialMapPos, setInitialMapPos] = useState(null);
+  function getUserLocation(){
+    window.navigator.geolocation
+    .getCurrentPosition(successCallBack, console.log);
+    // console.log("in getUserLocation");
+  }
   const [centeredPos, setCenteredPos] = useState({lat: 40.730610, lng: -73.935242});
   const [AQIStations, setAQIStations] = useState([]);
-  console.log(centeredPos);
+  // console.log(centeredPos);
 
   useEffect(() => {
+    getUserLocation();
+    // setCenteredPos({lat: 32.715736, lng: -117.161087});
     axios.get("https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=24.846565,-65.960261,48.987427,-124.732715")
     .then(response => {
       // console.log(response.data.data);
       setAQIStations(response.data.data);
-      // console.log("centeredPos: ",centeredPos);
-      // console.log("In useEffect");
-      // console.log(process.env.API_KEY);
-      // find user location
-      // var initialMapPos;
-      // const successCallBack= position => {
-      //   const { latitude, longitude } = position.coords;
-      //   setInitialMapPos({lat: latitude, lng: longitude});
-      //   // initialMapPos = {lat: latitude, lng: longitude};
-      //   console.log(initialMapPos);
-
-      // }
-      // window.navigator.geolocation
-      // .getCurrentPosition(successCallBack, console.log);
 
     })
     .catch((error) => console.log(error));
