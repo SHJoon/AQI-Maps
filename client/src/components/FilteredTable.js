@@ -26,17 +26,25 @@ const FilteredTable = ({ setLoc, filteredStations }) => {
         </thead>
         <tbody style={{ height: "500px", overflow: "auto" }}>
           {filteredStations
+            .filter((station) => {
+              return(station.station.name.slice(station.station.name.length-6)!== "Mexico"
+              && station.station.name.slice(station.station.name.length-6) !== "Canada"
+              && station.station.name.slice(station.station.name.length-8) !== "Saguenay"
+              && station.aqi !== "-")
+            })
             .sort((a, b) => (parseInt(a.aqi) > parseInt(b.aqi) ? 1 : -1))
             .map((station, i) => {
-              // if(station.station.name.slice(station.station.name.length-6) !== "Mexico" && station.station.name.slice(station.station.name.length-6) !== "Canada"&& station.station.name.slice(station.station.name.length-8) !== "Saguenay" && station.aqi !== "-"){
+                let aqiStyle = "";
+                if (station.aqi > 150) aqiStyle="bg-danger"
+                else if (station.aqi > 50) aqiStyle="bg-warning"
+                else aqiStyle="bg-success";
                 return (
                   <tr 
-                  
                   key={i}>
                     <td style={tableStyle}>{station.uid}</td>
                     <td className="text-left" style={tableStyle}>{station.station.name}</td>
                     <td style={tableStyle}>{station.aqi}</td>
-                    <td style={tableStyle}>
+                    <td style={tableStyle} className={aqiStyle}>
                       <button
                       className="btn btn-sm btn-info shadow mb-2"
                         onClick={(e) => handleClick(station.lat, station.lon)}
