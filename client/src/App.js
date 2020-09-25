@@ -2,48 +2,20 @@ import React, { useState, useEffect } from 'react';
 // import ReactDOM from "react-dom";
 import './App.css';
 import axios from 'axios';
-import { navigate, Router } from '@reach/router';
+import { navigate, Router, Redirect } from '@reach/router';
 
 import {Map} from './components/maps';
 import EachCity from './components/EachCity';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
 import SearchBox from "./components/SearchBox"
-
-// this is for login registration
-// import { Link, navigate, Router } from "@reach/router";
-// import LogReg from "./views/LogReg";
-// import UserList from "./views/UserList";
-
+import FilteredTable from './components/FilteredTable';
 
 function App({ mapProps }) {
 
-  // this is for login registration
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // const logout = () => {
-  //   axios
-  //     .post(
-  //       "http://localhost:8000/api/logout",
-  //       {},
-  //       {
-  //         // need to send the cookie in request so server can clear it
-  //         withCredentials: true,
-  //       }
-  //     )
-  //     .then((res) => {
-  //       console.log(res);
-  //       setIsLoggedIn(false);
-  //     })
-  //     .catch(console.log);
-
-  //   navigate("/");
-  // };
-  
   // successCallBack function in finding user location
   const successCallBack= position => {
     const { latitude, longitude } = position.coords;
     setCenteredPos({lat: latitude, lng: longitude});
-    // initialMapPos = {lat: latitude, lng: longitude};
     return {lat: latitude, lng: longitude};
 
   }
@@ -51,18 +23,17 @@ function App({ mapProps }) {
   function getUserLocation(){
     window.navigator.geolocation
     .getCurrentPosition(successCallBack, console.log);
-    // console.log("in getUserLocation");
   }
   const [centeredPos, setCenteredPos] = useState({lat: 40.730610, lng: -73.935242});
   const [AQIStations, setAQIStations] = useState([]);
-  const [currentLocation, setCurrentLocation] = useState({});
+  const [filteredStations, setFilteredStations] = useState([]);
 
   useEffect(() => {
     getUserLocation();
-    // setCenteredPos({lat: 32.715736, lng: -117.161087});
     axios.get("https://api.waqi.info/map/bounds/?token=d2583b4394214a830ffdade2d10b103620d66ee7&latlng=24.846565,-65.960261,48.987427,-124.732715")
     .then(response => {
       setAQIStations(response.data.data);
+      setFilteredStations(response.data.data);
     })
     .catch((error) => console.log(error));
   }, [])
@@ -92,7 +63,6 @@ function App({ mapProps }) {
         const marker = new window.google.maps.Marker({
           map,
           position: position,
-          // animation: window.google.maps.Animation.DROP,
           title: link.station.name,
           id: index + 1,
           icon: {
@@ -110,25 +80,17 @@ function App({ mapProps }) {
           infoStyle += `;color:white`;
         }
 
-        // let infoStr =
-        // `<div style="${infoStyle}">
-        //   <h3 style="${infoStyle}">${link.station.name}</h3>
-        //   <p>Air Quality Index: ${link.aqi}</p>
-        //   <p>Last Updated: ${link.station.time}</p>
-        // </div>`;
-        infoWindow = new window.google.maps.InfoWindow({
-          // content: infoStr
-        });
+        infoWindow = new window.google.maps.InfoWindow({});
         marker.addListener(`click`, () => {
           infoWindow.setContent(
             `<div style="${infoStyle}">
-              <h3 style="${infoStyle}">${link.station.name}</h3>
-              <p>Air Quality Index: ${link.aqi}</p>
+              <h4 style="${infoStyle}">${link.station.name}</h4>
+              <p>Air Quality Index: <b>${link.aqi}</b></p>
               <p>Last Updated: ${link.station.time}</p>
             </div>`
           );
           infoWindow.open(map, marker);
-          navigate(`/info/${link.lat}/${link.lon}`);
+          navigate(`/stations/${link.lat}/${link.lon}`);
         });
         map.addListener('click', function() {
           if (infoWindow) infoWindow.close();
@@ -143,31 +105,18 @@ function App({ mapProps }) {
 
   mapProps = {
     options: { center: centeredPos, zoom: 12 },
-    onMount: addMarkers(AQIStations)
+    onMount: addMarkers(filteredStations)
   };
 
   return (
     <div className='App'>
-      <SearchBox setLoc={longLat => setCenteredPos(longLat)}/>
+      <SearchBox setLoc={longLat => setCenteredPos(longLat)} aqiStations={AQIStations} setFilteredStations={setFilteredStations}/>
       <Map {...mapProps}/>
       <Router primary={false}>
-        <EachCity path="/info/:locLat/:locLng" city={currentLocation}/>
+        <FilteredTable path="/stations/filter" setLoc={longLat => setCenteredPos(longLat)} filteredStations={filteredStations}/>
+        <EachCity path="/stations/:locLat/:locLng" />
       </Router>
-
-      {/* this is for login registration */}
-      {/* <div className="jumbotron">
-        <h1>MERN Users</h1>
-        {isLoggedIn && <button onClick={logout}>Logout</button>}
-      </div>
-      <Router>
-        <LogReg setLoggedIn={() => setIsLoggedIn(true)} path="/" />
-        <UserList path="/users" />
-      </Router>
-      <div className="container">
-        <Link to="/users">Get Users List</Link>
-      </div> */}
-
-
+      <Redirect from="/" to="/stations/filter" noThrow="true" />
     </div>
   );
 }
