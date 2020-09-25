@@ -53,7 +53,7 @@ async function handlePlaceSelect(updateQuery, setLoc ) {
   //     console.error(err);
   //   }
   // );
-  // console.log(addressObject);
+  console.log(addressObject);
 }
 
 function SearchLocationInput() {

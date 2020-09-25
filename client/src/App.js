@@ -55,7 +55,7 @@ function App({ mapProps }) {
 
     links.forEach((link, index) => {
       
-      if (link.station.name.slice(link.station.name.length-6) !== "Mexico" && link.station.name.slice(link.station.name.length-6) !== "Canada"&& link.station.name.slice(link.station.name.length-8) !== "Saguenay") {
+      if (link.station.name.slice(link.station.name.length-6) !== "Mexico" && link.station.name.slice(link.station.name.length-6) !== "Canada"&& link.station.name.slice(link.station.name.length-8) !== "Saguenay" && link.aqi !== "-") {
         if (link.aqi > 200){iconColor ="purple";}
         else if (link.aqi > 150){iconColor ="red";}
         else if (link.aqi > 100){iconColor ="orange";}
@@ -113,11 +113,11 @@ function App({ mapProps }) {
   return (
     <div className='App'>
       <SearchBox setLoc={longLat => setCenteredPos(longLat)} aqiStations={AQIStations} setFilteredStations={setFilteredStations}/>
-      <SearchLocationInput setLoc={longLat => setCenteredPos(longLat)} />
-      {/* <Map {...mapProps}/> */}
+      {/* <SearchLocationInput setLoc={longLat => setCenteredPos(longLat)} /> */}
+      <Map {...mapProps}/>
       <Router primary={false}>
         <FilteredTable path="/stations/filter" setLoc={longLat => setCenteredPos(longLat)} filteredStations={filteredStations}/>
-        <EachStation path="/stations/:locLat/:locLng" />
+        <EachStation style={{visibility: "visible"}} path="/stations/:locLat/:locLng" />
       </Router>
       <Redirect from="/" to="/stations/filter" noThrow="true" />
     </div>

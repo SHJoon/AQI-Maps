@@ -14,33 +14,39 @@ const FilteredTable = ({ setLoc, filteredStations }) => {
 
   return (
     <div style={{ height: "500px", overflow: "auto" }}>
-      <table style={{ margin: "0 auto" }}>
-        <thead>
-          <tr>
-            <th style={tableStyle}>Station ID</th>
-            <th style={tableStyle}>Station</th>
-            <th style={tableStyle}>AQI</th>
-            <th style={tableStyle}>Action</th>
+      <table 
+      className="table table-fixed col-9 border table-scroll table-wrap" style={{ margin: "0 auto" }}>
+        <thead style={{position: "sticky"}}>
+          <tr  >
+            <th scope="col" style={tableStyle}>Station ID</th>
+            <th scope="col" style={tableStyle}>Station</th>
+            <th scope="col" style={tableStyle}>AQI</th>
+            <th scope="col" style={tableStyle}>Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{ height: "500px", overflow: "auto" }}>
           {filteredStations
             .sort((a, b) => (parseInt(a.aqi) > parseInt(b.aqi) ? 1 : -1))
             .map((station, i) => {
-              return (
-                <tr key={i}>
-                  <td style={tableStyle}>{station.uid}</td>
-                  <td style={tableStyle}>{station.station.name}</td>
-                  <td style={tableStyle}>{station.aqi}</td>
-                  <td style={tableStyle}>
-                    <button
-                      onClick={(e) => handleClick(station.lat, station.lon)}
-                    >
-                      Go to station
-                    </button>
-                  </td>
-                </tr>
-              );
+              // if(station.station.name.slice(station.station.name.length-6) !== "Mexico" && station.station.name.slice(station.station.name.length-6) !== "Canada"&& station.station.name.slice(station.station.name.length-8) !== "Saguenay" && station.aqi !== "-"){
+                return (
+                  <tr 
+                  
+                  key={i}>
+                    <td style={tableStyle}>{station.uid}</td>
+                    <td className="text-left" style={tableStyle}>{station.station.name}</td>
+                    <td style={tableStyle}>{station.aqi}</td>
+                    <td style={tableStyle}>
+                      <button
+                      className="btn btn-sm btn-info shadow mb-2"
+                        onClick={(e) => handleClick(station.lat, station.lon)}
+                      >
+                        Go to station
+                      </button>
+                    </td>
+                  </tr>
+                );
+            // }
             })}
         </tbody>
       </table>

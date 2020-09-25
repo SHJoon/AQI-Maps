@@ -18,7 +18,7 @@ const EachStation = (props) => {
         `https://api.waqi.info/feed/geo:${locLat};${locLng}/?token=d2583b4394214a830ffdade2d10b103620d66ee7`
       )
       .then((res) => {
-        if (res.data.status == "ok") {
+        if (res.data.status === "ok") {
           const copiedData = { ...res.data.data };
           for (let key of iaqiKeys) {
             if (!copiedData.iaqi.hasOwnProperty(key)) {
@@ -44,7 +44,7 @@ const EachStation = (props) => {
     border: "1px black solid",
   };
 
-  if (!isLoaded || locationData == null) {
+  if (!isLoaded || locationData === null) {
     return <div>Fetching station information...</div>;
   }
   if (!didRetrieve) {
@@ -76,7 +76,7 @@ const EachStation = (props) => {
                 onMouseLeave={(e) => setHoveredOver("")}
               >
                 <span style={{ fontSize: "10px" }}>&#10068;</span>
-                {hoveredOver == "aqi" && (
+                {hoveredOver === "aqi" && (
                   <div style={infoStyle}>Real-time air quality information</div>
                 )}
               </span>
@@ -91,7 +91,7 @@ const EachStation = (props) => {
                 onMouseLeave={(e) => setHoveredOver("")}
               >
                 <span style={{ fontSize: "10px" }}>&#10068;</span>
-                {hoveredOver == "co" && (
+                {hoveredOver === "co" && (
                   <div style={infoStyle}>Carbon Monoxide level</div>
                 )}
               </span>
@@ -106,7 +106,7 @@ const EachStation = (props) => {
                 onMouseOut={(e) => setHoveredOver("")}
               >
                 <span style={{ fontSize: "10px" }}>&#10068;</span>
-                {hoveredOver == "no2" && (
+                {hoveredOver === "no2" && (
                   <div style={infoStyle}>Nitrogen Dioxide level</div>
                 )}
               </span>
@@ -121,7 +121,7 @@ const EachStation = (props) => {
                 onMouseOut={(e) => setHoveredOver("")}
               >
                 <span style={{ fontSize: "10px" }}>&#10068;</span>
-                {hoveredOver == "o3" && (
+                {hoveredOver === "o3" && (
                   <div style={infoStyle}>Ground-level ozone</div>
                 )}
               </span>
@@ -136,7 +136,7 @@ const EachStation = (props) => {
                 onMouseOut={(e) => setHoveredOver("")}
               >
                 <span style={{ fontSize: "10px" }}>&#10068;</span>
-                {hoveredOver == "pm10" && (
+                {hoveredOver === "pm10" && (
                   <div style={infoStyle}>
                     Particulate matter smaller than 10 micrometer
                   </div>
@@ -153,7 +153,7 @@ const EachStation = (props) => {
                 onMouseOut={(e) => setHoveredOver("")}
               >
                 <span style={{ fontSize: "10px" }}>&#10068;</span>
-                {hoveredOver == "pm25" && (
+                {hoveredOver === "pm25" && (
                   <div style={infoStyle}>
                     Particulate matter smaller than 2.5 micrometer
                   </div>
@@ -170,7 +170,7 @@ const EachStation = (props) => {
                 onMouseOut={(e) => setHoveredOver("")}
               >
                 <span style={{ fontSize: "10px" }}>&#10068;</span>
-                {hoveredOver == "so2" && (
+                {hoveredOver === "so2" && (
                   <div style={infoStyle}>Sulfur Dioxide level</div>
                 )}
               </span>

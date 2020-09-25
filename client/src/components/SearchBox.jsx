@@ -29,7 +29,7 @@ const SearchBox = ({ setLoc, aqiStations, setFilteredStations }) => {
     const usStations= copiedStations.filter((station) => {
       return(station.station.name.slice(station.station.name.length-6) !== "Mexico"
       && station.station.name.slice(station.station.name.length-6) !== "Canada"
-      && station.station.name.slice(station.station.name.length-8) !== "Saguenay");
+      && station.station.name.slice(station.station.name.length-8) !== "Saguenay" && station.aqi != "-");
     })
 
     const filteredStations = usStations.filter((station) => {
@@ -66,19 +66,19 @@ const SearchBox = ({ setLoc, aqiStations, setFilteredStations }) => {
       <form onSubmit={(event) => {
           handleSubmit(event);
         }}>
-          <label>Address:</label>
+          <label className="my-2">Address:</label>
           <input type="text" 
-              className = "mx-2"
+              className = "mx-2 my-2"
               value = {address}
               onChange={(event) => {
               setAddress(event.target.value);
           }}/>
-          <button>Show</button>
+          <button className="btn btn-sm btn-info shadow mb-2" >Show</button>
       </form>
 
       <form onSubmit={handleFilter}>
           <label>Filter by AQI:</label>
-          <select onChange={e => setDropOption(e.target.value)}>
+          <select className="mx-2" onChange={e => setDropOption(e.target.value)}>
             <option value="0">Show All</option>
             <option value="1">0~50</option>
             <option value="2">51~100</option>
@@ -87,7 +87,7 @@ const SearchBox = ({ setLoc, aqiStations, setFilteredStations }) => {
             <option value="5">201~300</option>
             <option value="6">301+</option>
           </select>
-          <input type="submit" value="Filter" />
+          <input className="btn btn-sm btn-info shadow mb-2"  type="submit" value="Filter" />
       </form>
     </div>
   );
