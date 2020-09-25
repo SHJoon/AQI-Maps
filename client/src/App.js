@@ -10,6 +10,8 @@ import MarkerClusterer from '@googlemaps/markerclustererplus';
 import SearchBox from "./components/SearchBox"
 import FilteredTable from './components/FilteredTable';
 
+// import SearchLocationInput from "./components/AutoCompleteSearch";
+
 function App({ mapProps }) {
 
   // successCallBack function in finding user location
@@ -36,7 +38,7 @@ function App({ mapProps }) {
       setFilteredStations(response.data.data);
     })
     .catch((error) => console.log(error));
-  }, [])
+  },[])
 
   const addAQIStyle = (aqi) => {
     const hValue = 120 - Math.floor(aqi * 0.8);
@@ -111,6 +113,7 @@ function App({ mapProps }) {
   return (
     <div className='App'>
       <SearchBox setLoc={longLat => setCenteredPos(longLat)} aqiStations={AQIStations} setFilteredStations={setFilteredStations}/>
+      {/* <SearchLocationInput setLoc={longLat => setCenteredPos(longLat)} /> */}
       <Map {...mapProps}/>
       <Router primary={false}>
         <FilteredTable path="/stations/filter" setLoc={longLat => setCenteredPos(longLat)} filteredStations={filteredStations}/>
