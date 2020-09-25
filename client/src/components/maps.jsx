@@ -2,9 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
 export const Map = ({ options, onMount}) => {
-
-  
-
   const props = { ref: useRef()};
   
   const onLoad = () => {
@@ -15,7 +12,6 @@ export const Map = ({ options, onMount}) => {
   
   useEffect(() => {
     if (!window.google) {
-      // getUserLocation();
       const script = document.createElement(`script`);
       script.type = `text/javascript`;
       script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}`;
@@ -24,8 +20,7 @@ export const Map = ({ options, onMount}) => {
       script.addEventListener(`load`, onLoad);
       return () => script.removeEventListener(`load`, onLoad);
     } else onLoad();
-    
-    // console.log(options.center);
+
   });
 
 

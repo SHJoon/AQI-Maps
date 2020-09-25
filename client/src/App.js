@@ -99,7 +99,7 @@ function App({ mapProps }) {
       }
     });
 
-    var markerCluster = new MarkerClusterer(map, markerList,
+    new MarkerClusterer(map, markerList,
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
   };
 
