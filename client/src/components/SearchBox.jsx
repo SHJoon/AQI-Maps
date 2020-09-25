@@ -33,28 +33,6 @@ const SearchBox = ({ setLoc, aqiStations, setFilteredStations }) => {
     })
 
     const filteredStations = usStations.filter((station) => {
-<<<<<<< Updated upstream
-      if (dropOption === "0") {
-        return station.aqi !== "-";
-      }
-      else if (dropOption === "1") {
-        return(station.aqi > 0 && station.aqi <= 50 && station.aqi !== "-");
-      }
-      else if (dropOption === "2") {
-        return(station.aqi > 50 && station.aqi <= 100 && station.aqi !== "-");
-      }
-      else if (dropOption === "3") {
-        return(station.aqi > 100 && station.aqi <= 150 && station.aqi !== "-");
-      }
-      else if (dropOption === "4") {
-        return(station.aqi > 150 && station.aqi <= 200 && station.aqi !== "-");
-      }
-      else if (dropOption === "5") {
-        return(station.aqi > 200 && station.aqi <= 300 && station.aqi !== "-");
-      }
-      else if (dropOption === "6") {
-        return(station.aqi > 300 && station.aqi !== "-");
-=======
       if (dropOption == "0") {
         return true;
       }
@@ -75,7 +53,6 @@ const SearchBox = ({ setLoc, aqiStations, setFilteredStations }) => {
       }
       else if (dropOption == "6") {
         return(station.aqi > 300);
->>>>>>> Stashed changes
       }
     });
 

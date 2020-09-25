@@ -43,8 +43,8 @@ const FilteredTable = ({ setLoc, filteredStations }) => {
                   key={i}>
                     <td style={tableStyle}>{station.uid}</td>
                     <td className="text-left" style={tableStyle}>{station.station.name}</td>
-                    <td style={tableStyle}>{station.aqi}</td>
-                    <td style={tableStyle} className={aqiStyle}>
+                    <td style={tableStyle} className={aqiStyle}>{station.aqi}</td>
+                    <td style={tableStyle}>
                       <button
                       className="btn btn-sm btn-info shadow mb-2"
                         onClick={(e) => handleClick(station.lat, station.lon)}
