@@ -62,7 +62,7 @@ const EachStation = (props) => {
                 width: "100px",
               }}
             >
-              City
+              Station
             </td>
             <td style={tdStyle}>
               <b>{locationData.city.name}</b>
