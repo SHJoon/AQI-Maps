@@ -78,7 +78,8 @@ function App({ mapProps }) {
   const addMarkers = links => map => {
     const markerList = [];
     var iconColor="";
-    
+    var infoWindow;
+
     links.forEach((link, index) => {
       
       if (link.station.name.slice(link.station.name.length-6) !== "Mexico" && link.station.name.slice(link.station.name.length-6) !== "Canada"&& link.station.name.slice(link.station.name.length-8) !== "Saguenay") {
@@ -109,19 +110,29 @@ function App({ mapProps }) {
           infoStyle += `;color:white`;
         }
 
-        let infoStr =
-        `<div style="${infoStyle}">
-          <h3 style="${infoStyle}">${link.station.name}</h3>
-          <p>Air Quality Index: ${link.aqi}</p>
-          <p>Last Updated: ${link.station.time}</p>
-        </div>`;
-        const infowindow = new window.google.maps.InfoWindow({
-          content: infoStr
+        // let infoStr =
+        // `<div style="${infoStyle}">
+        //   <h3 style="${infoStyle}">${link.station.name}</h3>
+        //   <p>Air Quality Index: ${link.aqi}</p>
+        //   <p>Last Updated: ${link.station.time}</p>
+        // </div>`;
+        infoWindow = new window.google.maps.InfoWindow({
+          // content: infoStr
         });
         marker.addListener(`click`, () => {
-          infowindow.open(map, marker);
+          infoWindow.setContent(
+            `<div style="${infoStyle}">
+              <h3 style="${infoStyle}">${link.station.name}</h3>
+              <p>Air Quality Index: ${link.aqi}</p>
+              <p>Last Updated: ${link.station.time}</p>
+            </div>`
+          );
+          infoWindow.open(map, marker);
           navigate(`/info/${link.lat}/${link.lon}`);
         });
+        map.addListener('click', function() {
+          if (infoWindow) infoWindow.close();
+      });
         
       }
     });
