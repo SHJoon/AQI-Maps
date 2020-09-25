@@ -68,7 +68,7 @@ function App({ mapProps }) {
   }, [])
 
   const addAQIStyle = (aqi) => {
-    const hValue = 120 - Math.floor(aqi * 0.75);
+    const hValue = 120 - Math.floor(aqi * 0.8);
     const sValue = "100%";
     const lValue = "50%";
 
@@ -102,7 +102,7 @@ function App({ mapProps }) {
         markerList.push(marker);
 
         let infoStyle = `background-color:${addAQIStyle(link.aqi)}`;
-        if (parseInt(link.aqi) > 250) {
+        if (parseInt(link.aqi) > 200) {
           infoStyle = `background-color:purple`;
         }
         if (parseInt(link.aqi) > 100) {
