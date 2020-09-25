@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const EachCity = (props) => {
+const EachStation = (props) => {
   const { locLat, locLng } = props;
 
   const [locationData, setLocationData] = useState(null);
@@ -187,4 +187,4 @@ const EachCity = (props) => {
   );
 };
 
-export default EachCity;
+export default EachStation;

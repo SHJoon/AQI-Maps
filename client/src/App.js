@@ -5,7 +5,7 @@ import axios from 'axios';
 import { navigate, Router, Redirect } from '@reach/router';
 
 import {Map} from './components/maps';
-import EachCity from './components/EachCity';
+import EachStation from './components/EachStation';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
 import SearchBox from "./components/SearchBox"
 import FilteredTable from './components/FilteredTable';
@@ -114,7 +114,7 @@ function App({ mapProps }) {
       <Map {...mapProps}/>
       <Router primary={false}>
         <FilteredTable path="/stations/filter" setLoc={longLat => setCenteredPos(longLat)} filteredStations={filteredStations}/>
-        <EachCity path="/stations/:locLat/:locLng" />
+        <EachStation path="/stations/:locLat/:locLng" />
       </Router>
       <Redirect from="/" to="/stations/filter" noThrow="true" />
     </div>
