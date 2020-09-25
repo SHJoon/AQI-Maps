@@ -10,7 +10,7 @@ import MarkerClusterer from '@googlemaps/markerclustererplus';
 import SearchBox from "./components/SearchBox"
 import FilteredTable from './components/FilteredTable';
 
-// import SearchLocationInput from "./components/AutoCompleteSearch";
+import SearchLocationInput from "./components/AutoCompleteSearch";
 
 function App({ mapProps }) {
 
@@ -113,8 +113,8 @@ function App({ mapProps }) {
   return (
     <div className='App'>
       <SearchBox setLoc={longLat => setCenteredPos(longLat)} aqiStations={AQIStations} setFilteredStations={setFilteredStations}/>
-      {/* <SearchLocationInput setLoc={longLat => setCenteredPos(longLat)} /> */}
-      <Map {...mapProps}/>
+      <SearchLocationInput setLoc={longLat => setCenteredPos(longLat)} />
+      {/* <Map {...mapProps}/> */}
       <Router primary={false}>
         <FilteredTable path="/stations/filter" setLoc={longLat => setCenteredPos(longLat)} filteredStations={filteredStations}/>
         <EachStation path="/stations/:locLat/:locLng" />

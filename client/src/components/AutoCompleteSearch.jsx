@@ -25,8 +25,10 @@ const loadScript = (url, callback) => {
 
 function handleScriptLoad(updateQuery, autoCompleteRef) {
   autoComplete = new window.google.maps.places.Autocomplete(
-    autoCompleteRef.current,
-    { types: ["(cities)"], componentRestrictions: { country: "us" } }
+    autoCompleteRef.current
+    // autoCompleteRef.current,
+    // { types: ["(cities)"], componentRestrictions: { country: "us" } }
+
   );
   autoComplete.setFields(
     ['address_components', 'geometry', 'name']);
@@ -41,17 +43,17 @@ async function handlePlaceSelect(updateQuery, setLoc ) {
   Geocode.setApiKey(process.env.REACT_APP_API_KEY);
 
   updateQuery(query);
-  Geocode.fromAddress(addressObject.formatted_address).then(
-    res => {
-      console.log("res.data.results.geometry.address: ",res.results[0].geometry.address);
-      setLoc(res.results[0].geometry.location);
-      navigate(`/info/${res.results[0].geometry.location.lat}/${res.results[0].geometry.location.lng}`);
-    },
-    err => {
-      console.error(err);
-    }
-  );
-  console.log(addressObject);
+  // Geocode.fromAddress(addressObject.formatted_address).then(
+  //   res => {
+  //     console.log("res.data.results.geometry.address: ",res.results[0].geometry.address);
+  //     setLoc(res.results[0].geometry.location);
+  //     navigate(`/info/${res.results[0].geometry.location.lat}/${res.results[0].geometry.location.lng}`);
+  //   },
+  //   err => {
+  //     console.error(err);
+  //   }
+  // );
+  // console.log(addressObject);
 }
 
 function SearchLocationInput() {
@@ -70,7 +72,7 @@ function SearchLocationInput() {
       <input
         ref={autoCompleteRef}
         onChange={event => setQuery(event.target.value)}
-        placeholder="Enter a City"
+        placeholder="Enter an address"
         value={query}
       />
     </div>
