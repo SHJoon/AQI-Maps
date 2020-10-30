@@ -32,18 +32,18 @@ nodemon server.js
 You should be able to see the project at `localhost:3000`!
 
 ## How to use
-The user will be greeted by a screen like below.
 
-<img src="documents/main_page.png" width=848 height=400>
-<img src="documents/main_page_table.png" width=848 height=395>
+<img src="documents/main_page.png" width=600 height=283>
+<img src="documents/main_page_table.png" width=600 height=279>
 
+At first glance, the homepage looks like above.
 If the user agrees to share your location, the website will simply reposition the map to your current location and display the nearest AQI information.
 
-The `Address` bar will accept most forms of geolocation, such as home address, city names, landmarks(i.e. Disneyland) and more. Putting such informations will grab the nearest AQI of the location and display the info
+The `Address` bar will accept most forms of geolocation, such as home address, city names, landmarks(i.e. Disneyland) and more. Putting such information will grab the nearest AQI of the location and display the info
 
 `Filter by AQI` dropdown menu will allow users to view only the stations with selected range of AQI.
 
-<img src="documents/filtered_results.png" width=848 height=496><br/><br/>
+<img src="documents/filtered_results.png" width=600 height=350><br/><br/>
 
 Clicking on a marker will allow the user to view the detailed information from the selected station.
 
