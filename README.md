@@ -8,7 +8,7 @@ AQI Maps require following softwares to launch:
 - `MongoDB`
 
 When creating your Google API key, make sure to include `Maps JavaScript API` and `Geocoding API`.
-In the `client` directory, create a file called `.dotenv` which will contain your Google Maps API key.
+In the `client` directory, create a file called `.env` which will contain your Google Maps API key.
 Include the following line within that file:
 ```sh
 REACT_APP_API_KEY = {{ YOUR_GOOGLE_MAPS_API_KEY }}
