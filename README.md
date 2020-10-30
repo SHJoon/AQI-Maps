@@ -36,8 +36,9 @@ You should be able to see the project at `localhost:3000`!
 <img src="documents/main_page.png" width=600 height=283>
 <img src="documents/main_page_table.png" width=600 height=279>
 
-At first glance, the homepage looks like above.
-If the user agrees to share your location, the website will simply reposition the map to your current location and display the nearest AQI information.
+At first glance, the homepage looks like above.  
+
+By agreeing to share the location, the website will simply reposition the map to your current location and display the nearest AQI information.
 
 The `Address` bar will accept most forms of geolocation, such as home address, city names, landmarks(i.e. Disneyland) and more. Putting such information will grab the nearest AQI of the location and display the info
 
