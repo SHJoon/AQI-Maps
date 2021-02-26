@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/AQI-Maps/static/css/main.523f09c5.chunk.css",
-    "main.js": "/AQI-Maps/static/js/main.a8560220.chunk.js",
-    "main.js.map": "/AQI-Maps/static/js/main.a8560220.chunk.js.map",
-    "runtime-main.js": "/AQI-Maps/static/js/runtime-main.2adaabc4.js",
-    "runtime-main.js.map": "/AQI-Maps/static/js/runtime-main.2adaabc4.js.map",
-    "static/css/2.8aa5a7f8.chunk.css": "/AQI-Maps/static/css/2.8aa5a7f8.chunk.css",
-    "static/js/2.54d6f6e1.chunk.js": "/AQI-Maps/static/js/2.54d6f6e1.chunk.js",
-    "static/js/2.54d6f6e1.chunk.js.map": "/AQI-Maps/static/js/2.54d6f6e1.chunk.js.map",
-    "index.html": "/AQI-Maps/index.html",
-    "precache-manifest.784389511e3b67aca304b0059923d0e0.js": "/AQI-Maps/precache-manifest.784389511e3b67aca304b0059923d0e0.js",
-    "service-worker.js": "/AQI-Maps/service-worker.js",
-    "static/css/2.8aa5a7f8.chunk.css.map": "/AQI-Maps/static/css/2.8aa5a7f8.chunk.css.map",
-    "static/css/main.523f09c5.chunk.css.map": "/AQI-Maps/static/css/main.523f09c5.chunk.css.map",
-    "static/js/2.54d6f6e1.chunk.js.LICENSE.txt": "/AQI-Maps/static/js/2.54d6f6e1.chunk.js.LICENSE.txt"
+    "main.css": "/aqi-maps/static/css/main.523f09c5.chunk.css",
+    "main.js": "/aqi-maps/static/js/main.6fe681aa.chunk.js",
+    "main.js.map": "/aqi-maps/static/js/main.6fe681aa.chunk.js.map",
+    "runtime-main.js": "/aqi-maps/static/js/runtime-main.bcf54949.js",
+    "runtime-main.js.map": "/aqi-maps/static/js/runtime-main.bcf54949.js.map",
+    "static/css/2.8aa5a7f8.chunk.css": "/aqi-maps/static/css/2.8aa5a7f8.chunk.css",
+    "static/js/2.54d6f6e1.chunk.js": "/aqi-maps/static/js/2.54d6f6e1.chunk.js",
+    "static/js/2.54d6f6e1.chunk.js.map": "/aqi-maps/static/js/2.54d6f6e1.chunk.js.map",
+    "index.html": "/aqi-maps/index.html",
+    "precache-manifest.b6c0a3830d32c9e7c139d6c8ff24c351.js": "/aqi-maps/precache-manifest.b6c0a3830d32c9e7c139d6c8ff24c351.js",
+    "service-worker.js": "/aqi-maps/service-worker.js",
+    "static/css/2.8aa5a7f8.chunk.css.map": "/aqi-maps/static/css/2.8aa5a7f8.chunk.css.map",
+    "static/css/main.523f09c5.chunk.css.map": "/aqi-maps/static/css/main.523f09c5.chunk.css.map",
+    "static/js/2.54d6f6e1.chunk.js.LICENSE.txt": "/aqi-maps/static/js/2.54d6f6e1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.2adaabc4.js",
+    "static/js/runtime-main.bcf54949.js",
     "static/css/2.8aa5a7f8.chunk.css",
     "static/js/2.54d6f6e1.chunk.js",
     "static/css/main.523f09c5.chunk.css",
-    "static/js/main.a8560220.chunk.js"
+    "static/js/main.6fe681aa.chunk.js"
   ]
 }
